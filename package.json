@@ -1,0 +1,11 @@
+{
+  "name": "smite-discord-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:pdan101/smite-discord-bot.git",
+  "author": "mluo24 and pdan101",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^13.3.1"
+  }
+}
