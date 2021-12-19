@@ -5,7 +5,56 @@
   "repository": "git@github.com:pdan101/smite-discord-bot.git",
   "author": "mluo24 and pdan101",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+  },
   "dependencies": {
     "discord.js": "^13.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.3",
+    "prettier": "^2.5.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "plugin:prettier/recommended"
+    ],
+    "rules": {
+      "no-console": "warn",
+      "import/first": "error"
+    }
+  },
+  "prettier": {
+    "printWidth": 85,
+    "semi": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "singleQuote": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.+(json|css|md)": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
