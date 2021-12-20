@@ -138,3 +138,6 @@ Temporary Items
 
 # JetBrains settings
 .idea
+
+# Discord bot
+config.json

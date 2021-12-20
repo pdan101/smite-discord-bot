@@ -6,6 +6,7 @@
   "author": "mluo24 and pdan101",
   "license": "MIT",
   "scripts": {
+    "start": "node index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
@@ -31,8 +32,7 @@
       "plugin:prettier/recommended"
     ],
     "rules": {
-      "no-console": "warn",
-      "import/first": "error"
+      "no-console": "warn"
     }
   },
   "prettier": {
