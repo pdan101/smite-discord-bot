@@ -35,8 +35,7 @@
     "extends": [
       "plugin:prettier/recommended"
     ],
-    "rules": {
-    }
+    "rules": {}
   },
   "prettier": {
     "printWidth": 85,
