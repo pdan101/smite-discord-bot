@@ -18,20 +18,38 @@ module.exports = {
     console.log(
       `${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`
     )
-    if (!interaction.isCommand()) return
 
-    const command = commands.get(interaction.commandName)
+    // handles the command interactions
+    if (interaction.isCommand()) {
+      const command = commands.get(interaction.commandName)
 
-    if (!command) return
+      if (!command) return
 
-    try {
-      await command.execute(interaction)
-    } catch (error) {
-      console.error(error)
-      return interaction.reply({
-        content: 'There was an error while executing this command!',
-        ephemeral: true,
+      try {
+        await command.execute(interaction)
+      } catch (error) {
+        console.error(error)
+        return interaction.reply({
+          content: 'There was an error while executing this command!',
+          ephemeral: true,
+        })
+      }
+    }
+    // handles the button interactions
+    else if (interaction.isButton()) {
+      console.log('button pressed')
+      interaction.reply({
+        content: 'button press interaction',
       })
     }
+    // handles the select menu interactions
+    else if (interaction.isSelectMenu()) {
+      console.log('select menu option selected')
+      interaction.reply({
+        content: `selected ${interaction.values}`,
+      })
+    }
+    // if interaction does not match, return out of this function
+    else return
   },
 }
