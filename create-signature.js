@@ -24,29 +24,30 @@ async function getSessionIdPromise() {
 }
 
 const sessionId = getSessionIdPromise();
+setTimeout(() => console.log(sessionId), 500);
+/*
 sessionId.then((val) => {
   console.log(val);
 });
+*/
 
-function makeRequest(endpoint, args = []) {
+async function makeRequest(endpoint, args = []) {
   let signature = generateSignature(endpoint);
   let timestamp = getTimestamp();
   let argsString = args.join('/');
-  sessionId.then((sessionid) => {
-    axios
-      .get(
-        `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.data);
-      });
+  return await sessionId.then(async (sessionid) => {
+    const response = await axios.get(
+      `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
+    );
+    return response.data;
   });
 }
 
-//makeRequest("getplayer", ["Shinecune101"]);
+const miranda = makeRequest('getplayer', ['Shinecune101']);
+setTimeout(() => console.log(miranda), 500);
+//in other files, we call makeRequest -->
+//chain 'then' blocks on the returned promise to access the response -->
+//do whatever we want
 
 module.exports = {
   makeRequest: makeRequest,
