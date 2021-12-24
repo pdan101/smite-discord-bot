@@ -38,8 +38,7 @@
       "ecmaVersion": 2021
     },
     "extends": [
-      "eslint:recommended",
-      "plugin:prettier/recommended"
+      "eslint:recommended"
     ],
     "rules": {
       "no-console": "off"
@@ -50,8 +49,8 @@
     "semi": true,
     "tabWidth": 2,
     "trailingComma": "es5",
-    "singleQuote": false,
-    "endOfLine": "auto"
+    "singleQuote": true,
+    "endOfLine": "crlf"
   },
   "husky": {
     "hooks": {

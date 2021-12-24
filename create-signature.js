@@ -1,11 +1,11 @@
-const { default: axios } = require("axios");
-const MD5 = require("crypto-js/md5");
-const moment = require("moment");
-const { devId, authKey } = require("./config.json");
-const { SMITE_API } = require("./constants.js");
+const { default: axios } = require('axios');
+const MD5 = require('crypto-js/md5');
+const moment = require('moment');
+const { devId, authKey } = require('./config.json');
+const { SMITE_API } = require('./constants.js');
 
 function getTimestamp() {
-  return moment.utc().format("YYYYMMDDHHmmss");
+  return moment.utc().format('YYYYMMDDHHmmss');
 }
 
 function generateSignature(requestName) {
@@ -16,7 +16,7 @@ function generateSignature(requestName) {
 
 //make request to get session_id, store in variable
 async function getSessionIdPromise() {
-  const signature = generateSignature("createsession");
+  const signature = generateSignature('createsession');
   const response = await axios.get(
     `${SMITE_API}createsessionJson/${devId}/${signature}/${getTimestamp()}`
   );
@@ -31,7 +31,7 @@ sessionId.then((val) => {
 function makeRequest(endpoint, args = []) {
   let signature = generateSignature(endpoint);
   let timestamp = getTimestamp();
-  let argsString = args.join("/");
+  let argsString = args.join('/');
   sessionId.then((sessionid) => {
     axios
       .get(
