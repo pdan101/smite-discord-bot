@@ -45,9 +45,13 @@ module.exports = {
     // handles the select menu interactions
     else if (interaction.isSelectMenu()) {
       console.log('select menu option selected');
-      interaction.reply({
-        content: `selected ${interaction.values}`,
-      });
+
+      // for the getplayer command
+      if (interaction.customId === 'getplayer') {
+        interaction.reply({
+          content: `Results for ${interaction.values}:`,
+        });
+      }
     }
     // if interaction does not match, return out of this function
     else return;

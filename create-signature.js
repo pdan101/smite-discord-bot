@@ -24,12 +24,10 @@ async function getSessionIdPromise() {
 }
 
 const sessionId = getSessionIdPromise();
-setTimeout(() => console.log(sessionId), 500);
-/*
-sessionId.then((val) => {
-  console.log(val);
-});
-*/
+setTimeout(() => console.log(sessionId), 15000);
+//sessionId.then((val) => {
+//  console.log(val);
+//});
 
 async function makeRequest(endpoint, args = []) {
   let signature = generateSignature(endpoint);
@@ -44,7 +42,10 @@ async function makeRequest(endpoint, args = []) {
 }
 
 const miranda = makeRequest('getplayer', ['Shinecune101']);
-setTimeout(() => console.log(miranda), 500);
+setTimeout(() => console.log(miranda), 15000);
+//miranda.then((val) => {
+//  console.log(val);
+//});
 //in other files, we call makeRequest -->
 //chain 'then' blocks on the returned promise to access the response -->
 //do whatever we want
