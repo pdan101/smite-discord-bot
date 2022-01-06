@@ -24,10 +24,10 @@ async function getSessionIdPromise() {
 }
 
 const sessionId = getSessionIdPromise();
-setTimeout(() => console.log(sessionId), 15000);
-//sessionId.then((val) => {
-//  console.log(val);
-//});
+//setTimeout(() => console.log(sessionId), 15000);
+// sessionId.then((val) => {
+//   console.log(val);
+// });
 
 async function makeRequest(endpoint, args = []) {
   let signature = generateSignature(endpoint);
@@ -37,15 +37,18 @@ async function makeRequest(endpoint, args = []) {
     const response = await axios.get(
       `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
     );
+    console.log(
+      `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
+    );
     return response.data;
   });
 }
 
-const miranda = makeRequest('getplayer', ['Shinecune101']);
-setTimeout(() => console.log(miranda), 15000);
-//miranda.then((val) => {
-//  console.log(val);
-//});
+// const miranda = makeRequest('getplayer', ['Shinecune101']);
+// setTimeout(() => console.log(miranda), 15000);
+// miranda.then((val) => {
+//   console.log(val);
+// });
 //in other files, we call makeRequest -->
 //chain 'then' blocks on the returned promise to access the response -->
 //do whatever we want

@@ -1,5 +1,6 @@
 const { Collection } = require('discord.js');
 const fs = require('fs');
+const { makeRequest } = require('../create-signature');
 const commands = new Collection();
 const commandFiles = fs
   .readdirSync('./commands')
@@ -10,6 +11,21 @@ for (const file of commandFiles) {
   // Set a new item in the Collection
   // With the key as the command name and the value as the exported module
   commands.set(command.data.name, command);
+}
+
+function convertGodToString(godObject) {
+  let str = 'God: ' + godObject.god + '\n';
+  str += `Mastery Rank: ${godObject.Rank} (${godObject.Worshippers} Worshippers)\n`;
+  str +=
+    'Kills/Deaths/Assists: ' +
+    godObject.Kills +
+    '-' +
+    godObject.Deaths +
+    '-' +
+    godObject.Assists +
+    '\n';
+  str += `Wins/Losses: ${godObject.Wins}-${godObject.Losses}\n`;
+  return str;
 }
 
 module.exports = {
@@ -48,8 +64,16 @@ module.exports = {
 
       // for the getplayer command
       if (interaction.customId === 'getplayer') {
+        console.log(interaction.values[0]);
+        const playerData = await makeRequest('getgodranks', [interaction.values[0]]);
+        console.log(playerData);
+        const sortedData = playerData
+          .sort((e1, e2) => e2.Worshippers - e1.Worshippers)
+          .slice(0, 10)
+          .map(convertGodToString)
+          .join('\n');
         interaction.reply({
-          content: `Results for ${interaction.values}:`,
+          content: `Results for selected player:\n${sortedData}`, //interaction.values
         });
       }
     }

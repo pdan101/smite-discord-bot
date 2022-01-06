@@ -1,21 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageActionRow, MessageSelectMenu } = require('discord.js');
-const { default: axios } = require('axios');
-
-// dummy player data
-/*
-const playerData = [
-  {
-    player_id: 'Shinecune101',
-  },
-  {
-    player_id: 'puchka',
-  },
-  {
-    gamer_tag: 'gamer',
-  },
-];
-*/
+const { makeRequest } = require('../create-signature');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -31,16 +16,17 @@ module.exports = {
     const playername = interaction.options.get('playername').value;
     console.log(playername);
 
-    const bozoshows = await axios
-      .get('https://prithwishjoyceshowtracker2.herokuapp.com/api/watchlist/1/')
-      .then((response) => response.data.shows);
+    const playerlist = await makeRequest('searchplayers', [playername]);
+    console.log(playerlist);
 
-    let arrOfPlayers = bozoshows
-      .map((x) => x.name) //replace (x.player_id ? x.player_id : x.gamer_tag)
-      .map((x) => ({
-        label: x,
-        value: x,
-      }));
+    let arrOfPlayers = playerlist.map((x) => ({
+      label:
+        x.Name +
+        ' (Hi-Rez: ' +
+        (x.hz_player_name === null ? 'N/A' : x.hz_player_name) +
+        ')',
+      value: x.player_id,
+    }));
 
     const dropdown = new MessageActionRow().addComponents(
       new MessageSelectMenu()
