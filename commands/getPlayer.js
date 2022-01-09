@@ -1,6 +1,26 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageActionRow, MessageSelectMenu } = require('discord.js');
+const { MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
 const { makeRequest } = require('../create-signature');
+
+const portal_id_map = {
+  1: 'Hi-Rez',
+  5: 'Steam',
+  9: 'PS4',
+  10: 'Xbox',
+  22: 'Switch',
+  25: 'Discord',
+  28: 'Epic',
+};
+
+function takeValidString(str) {
+  if (str.length <= 23) {
+    return str;
+  } else if (str.length == 0) {
+    return 'Empty Name';
+  } else {
+    return str.substring(0, 24);
+  }
+}
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -14,26 +34,35 @@ module.exports = {
     ),
   async execute(interaction) {
     const playername = interaction.options.get('playername').value;
-    console.log(playername);
 
     const playerlist = await makeRequest('searchplayers', [playername]);
-    console.log(playerlist);
 
     let arrOfPlayers = playerlist.map((x) => ({
-      label:
-        x.Name +
-        ' (Hi-Rez: ' +
-        (x.hz_player_name === null ? 'N/A' : x.hz_player_name) +
-        ')',
+      label: takeValidString(x.Name + ` (${portal_id_map[x.portal_id]})`),
       value: x.player_id,
     }));
 
-    const dropdown = new MessageActionRow().addComponents(
-      new MessageSelectMenu()
-        .setCustomId('getplayer')
-        .setPlaceholder('No player selected')
-        .addOptions(arrOfPlayers)
-    );
+    if (arrOfPlayers.length > 24) {
+      arrOfPlayers = arrOfPlayers.slice(0, 25);
+    }
+    console.log(arrOfPlayers);
+    console.log(arrOfPlayers.length);
+
+    const dropdown =
+      arrOfPlayers.length > 0
+        ? new MessageActionRow().addComponents(
+            new MessageSelectMenu()
+              .setCustomId('getplayer')
+              .setPlaceholder('No player selected')
+              .addOptions(arrOfPlayers)
+          )
+        : new MessageActionRow().addComponents(
+            new MessageButton()
+              .setCustomId('primary')
+              .setLabel('No Players Found.')
+              .setStyle('PRIMARY')
+              .setDisabled(true)
+          );
 
     //replies to interaction (not needed anymore when making this request?)
     // await interaction.reply({

@@ -110,13 +110,12 @@ module.exports = {
           .slice(0, 10);
 
         const embedArray = sortedData.map(convertGodToEmbed);
+        let dataToSend = { embeds: embedArray };
+        if (embedArray.length == 0) {
+          dataToSend.content = 'No data.';
+        }
 
-        interaction.reply({
-          embeds: embedArray,
-          // content: `Results for selected player:\n${sortedData
-          //   .map(convertGodToString)
-          //   .join('\n')}`, //interaction.values
-        });
+        interaction.reply(dataToSend);
       }
     }
     // if interaction does not match, return out of this function
