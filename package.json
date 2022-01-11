@@ -50,7 +50,7 @@
     "tabWidth": 2,
     "trailingComma": "es5",
     "singleQuote": true,
-    "endOfLine": "crlf"
+    "endOfLine": "auto"
   },
   "husky": {
     "hooks": {

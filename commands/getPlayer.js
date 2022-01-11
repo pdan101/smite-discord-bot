@@ -51,31 +51,22 @@ module.exports = {
     const dropdown =
       arrOfPlayers.length > 0
         ? new MessageActionRow().addComponents(
-            new MessageSelectMenu()
-              .setCustomId('getplayer')
-              .setPlaceholder('No player selected')
-              .addOptions(arrOfPlayers)
-          )
+          new MessageSelectMenu()
+            .setCustomId('getplayer')
+            .setPlaceholder('No player selected')
+            .addOptions(arrOfPlayers)
+        )
         : new MessageActionRow().addComponents(
-            new MessageButton()
-              .setCustomId('primary')
-              .setLabel('No Players Found.')
-              .setStyle('PRIMARY')
-              .setDisabled(true)
-          );
-
-    //replies to interaction (not needed anymore when making this request?)
-    // await interaction.reply({
-    //   content: 'Here are the found players:',
-    //   ephemeral: false,
-    //   components: [dropdown],
-    // });
-
-    //do stuff here
+          new MessageButton()
+            .setCustomId('primary')
+            .setLabel('No Players Found.')
+            .setStyle('PRIMARY')
+            .setDisabled(true)
+        );
 
     //edit reply here
     await interaction.reply({
-      content: 'Here are the found players:',
+      content: `Here are the found players for search "${playername}":`,
       ephemeral: false,
       components: [dropdown],
     });
