@@ -1,6 +1,7 @@
 const { Collection } = require('discord.js');
 const fs = require('fs');
 const { getPlayerGodRanks } = require('../selections/playerGodRanks');
+const { getPlayerMatchHistory } = require('../selections/playerMatchHistory');
 const commands = new Collection();
 const commandFiles = fs
   .readdirSync('./commands')
@@ -50,6 +51,9 @@ module.exports = {
       // for the getplayer command (will soon change so it would be for getting gods)
       if (interaction.customId === 'getplayer') {
         const data = await getPlayerGodRanks(interaction.values[0]);
+        interaction.reply(data);
+      } else if (interaction.customId === 'getmatchhistory') {
+        const data = await getPlayerMatchHistory(interaction.values[0]);
         interaction.reply(data);
       }
     }
