@@ -1,5 +1,6 @@
 const { makeRequest } = require('../create-signature');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { createCanvas, loadImage } = require('canvas');
 
 function checkUnknown(role) {
   if (role === 'Unknown') {
@@ -50,12 +51,43 @@ function convertMatchToEmbed(match) {
 
 module.exports = {
   getPlayerMatchHistory: async function getPlayerMatchHistory(playerId) {
-    // console.log(playerId);
+    const MATCHES = 5;
     const matchData = await makeRequest('getmatchhistory', [playerId]);
-    console.log(matchData.slice(0, 10));
-
-    const embedArray = matchData.slice(0, 10).map(convertMatchToEmbed);
-    let dataToSend = { embeds: embedArray };
+    let imageArray = [];
+    let embedArray = [];
+    console.log(matchData.slice(0, MATCHES));
+    if (matchData[0].ret_msg == null) {
+      embedArray = matchData.slice(0, MATCHES).map(convertMatchToEmbed);
+      for (let i = 0; i < MATCHES; i++) {
+        const defaultImage =
+          'https://discordjs.guide/assets/canvas-preview.30c4fe9e.png';
+        const canvas = createCanvas(600, 100);
+        const context = canvas.getContext('2d');
+        for (let j = 1; j <= 6; j++) {
+          let imgURL =
+            matchData[i][`Item_${j}`] === ''
+              ? defaultImage
+              : `https://webcdn.hirezstudios.com/smite/item-icons/${matchData[i][
+                  `Item_${j}`
+                ]
+                  .toLowerCase()
+                  .replace(/ /g, '-')
+                  .replace(/'/g, '')}.jpg`;
+          const item1 = await loadImage(imgURL);
+          context.drawImage(
+            item1,
+            ((j - 1) * canvas.width) / 6,
+            0,
+            canvas.width / 6,
+            canvas.height
+          );
+        }
+        let attachment = new MessageAttachment(canvas.toBuffer(), `items${i}.png`);
+        imageArray[i] = attachment;
+        embedArray[i].image = { url: `attachment://items${i}.png` };
+      }
+    }
+    let dataToSend = { embeds: embedArray, files: imageArray };
     if (embedArray.length == 0) {
       dataToSend.content = 'No match history found.';
     }

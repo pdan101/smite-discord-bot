@@ -53,8 +53,9 @@ module.exports = {
         const data = await getPlayerGodRanks(interaction.values[0]);
         interaction.reply(data);
       } else if (interaction.customId === 'getmatchhistory') {
+        await interaction.deferReply();
         const data = await getPlayerMatchHistory(interaction.values[0]);
-        interaction.reply(data);
+        interaction.editReply(data);
       }
     }
     // if interaction does not match, return out of this function
