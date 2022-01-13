@@ -61,7 +61,8 @@ module.exports = {
       for (let i = 0; i < MATCHES; i++) {
         const defaultImage =
           'https://discordjs.guide/assets/canvas-preview.30c4fe9e.png';
-        const canvas = createCanvas(600, 100);
+        const width = 600;
+        const canvas = createCanvas(width, width / 6);
         const context = canvas.getContext('2d');
         for (let j = 1; j <= 6; j++) {
           let imgURL =
