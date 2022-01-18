@@ -55,7 +55,7 @@ module.exports = {
     const matchData = await makeRequest('getmatchhistory', [playerId]);
     let imageArray = [];
     let embedArray = [];
-    console.log(matchData.slice(0, MATCHES));
+    // console.log(matchData.slice(0, MATCHES));
     if (matchData[0].ret_msg == null) {
       embedArray = matchData.slice(0, MATCHES).map(convertMatchToEmbed);
       for (let i = 0; i < MATCHES; i++) {
