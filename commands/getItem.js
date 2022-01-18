@@ -56,7 +56,7 @@ module.exports = {
     const itemInfo = itemlist.find(
       (element) => element.DeviceName.toLowerCase() === itemname.toLowerCase()
     );
-    console.log(itemInfo);
+    // console.log(itemInfo);
     if (itemInfo === undefined) {
       let content = 'Item not found.\n';
       const recommended = itemlist.filter(

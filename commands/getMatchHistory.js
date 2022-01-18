@@ -45,8 +45,8 @@ module.exports = {
     if (arrOfPlayers.length > 24) {
       arrOfPlayers = arrOfPlayers.slice(0, 25);
     }
-    console.log(arrOfPlayers);
-    console.log(arrOfPlayers.length);
+    // console.log(arrOfPlayers);
+    // console.log(arrOfPlayers.length);
 
     const dropdown =
       arrOfPlayers.length > 0

@@ -33,9 +33,9 @@ async function makeRequest(endpoint, args = []) {
     const response = await axios.get(
       `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
     );
-    console.log(
-      `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
-    );
+    // console.log(
+    //   `${SMITE_API}${endpoint}Json/${devId}/${signature}/${sessionid}/${timestamp}/${argsString}`
+    // );
     return response.data;
   });
 }

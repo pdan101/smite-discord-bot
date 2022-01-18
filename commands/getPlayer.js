@@ -45,24 +45,24 @@ module.exports = {
     if (arrOfPlayers.length > 24) {
       arrOfPlayers = arrOfPlayers.slice(0, 25);
     }
-    console.log(arrOfPlayers);
-    console.log(arrOfPlayers.length);
+    // console.log(arrOfPlayers);
+    // console.log(arrOfPlayers.length);
 
     const dropdown =
       arrOfPlayers.length > 0
         ? new MessageActionRow().addComponents(
-          new MessageSelectMenu()
-            .setCustomId('getplayer')
-            .setPlaceholder('No player selected')
-            .addOptions(arrOfPlayers)
-        )
+            new MessageSelectMenu()
+              .setCustomId('getplayer')
+              .setPlaceholder('No player selected')
+              .addOptions(arrOfPlayers)
+          )
         : new MessageActionRow().addComponents(
-          new MessageButton()
-            .setCustomId('primary')
-            .setLabel('No Players Found.')
-            .setStyle('PRIMARY')
-            .setDisabled(true)
-        );
+            new MessageButton()
+              .setCustomId('primary')
+              .setLabel('No Players Found.')
+              .setStyle('PRIMARY')
+              .setDisabled(true)
+          );
 
     //edit reply here
     await interaction.reply({
