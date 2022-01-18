@@ -5,14 +5,14 @@ const { makeRequest } = require('../create-signature');
 
 function splitString(str, limit = 11) {
   if (str.indexOf(' ') == -1 || str.length < limit) return str;
-  const arr = str.split(' ');
+  const words = str.split(' ');
   let combine = '';
   let count = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (i > 0 && arr[i].length > limit * 1.5) {
+  for (let i = 0; i < words.length; i++) {
+    if (i > 0 && words[i].length > limit * 1.5) {
       combine += '\n';
     }
-    combine += arr[i] + ' ';
+    combine += words[i] + ' ';
     if (count < Math.floor(combine.length / limit)) {
       //console.log(`Count: ${count}, Combine:\n${combine}`);
       count = Math.floor(combine.length / limit);
@@ -36,11 +36,11 @@ module.exports = {
     await interaction.deferReply();
     const godname = interaction.options.get('godname').value;
 
-    const godlist = await makeRequest('getgods', ['1']);
+    const godlist = await makeRequest('getgods', ['1']); //1 refers to English
     const godInfo = godlist.find(
       (element) => element.Name.toLowerCase() === godname.toLowerCase()
     );
-    console.log(godInfo);
+    //console.log(godInfo);
     let content = '';
     if (godInfo === undefined) {
       content = 'God not found.';
