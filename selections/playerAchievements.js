@@ -53,7 +53,7 @@ module.exports = {
           inline: true,
         },
         { name: '\u200B', value: '\u200B' },
-        { name: 'Killing Sprees', value: '\u200B' },
+        { name: 'Killstreaks', value: '\u200B' },
         {
           name: 'Killing Sprees',
           value: achievements['KillingSpree'].toString(),
