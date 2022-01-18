@@ -22,7 +22,7 @@ function takeValidString(str) {
 }
 
 module.exports = {
-  searchPlayer: async function searchPlayer(interaction) {
+  searchPlayer: async function searchPlayer(interaction, id) {
     const playername = interaction.options.get('playername').value;
 
     const playerlist = await makeRequest('searchplayers', [playername]);
@@ -40,7 +40,7 @@ module.exports = {
       arrOfPlayers.length > 0
         ? new MessageActionRow().addComponents(
             new MessageSelectMenu()
-              .setCustomId('getachievements')
+              .setCustomId(id)
               .setPlaceholder('No player selected')
               .addOptions(arrOfPlayers)
           )
