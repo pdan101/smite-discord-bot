@@ -43,7 +43,16 @@ module.exports = {
     //console.log(godInfo);
     let content = '';
     if (godInfo === undefined) {
-      content = 'God not found.';
+      content = 'God not found.\n';
+      const recommended = godlist.filter(
+        (element) =>
+          element.Name.toLowerCase().indexOf(
+            godname.substring(0, 3).toLowerCase()
+          ) != -1
+      );
+      content += `Did you mean: ${recommended
+        .map((element) => element.Name)
+        .join(', ')}`;
       interaction.editReply({
         content: content,
       });
