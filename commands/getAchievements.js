@@ -3,8 +3,8 @@ const { searchPlayer } = require('../search-player');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('getmatchhistory') // can only have command as lowercase letters
-    .setDescription('Replies with relevant player match history.')
+    .setName('getachievements')
+    .setDescription("Replies with specified player's in-game achievements.")
     .addStringOption((option) =>
       option
         .setName('playername')
@@ -12,6 +12,6 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    searchPlayer(interaction, 'getmatchhistory');
+    searchPlayer(interaction, 'getachievements');
   },
 };
